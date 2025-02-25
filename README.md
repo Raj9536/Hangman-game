@@ -1,70 +1,74 @@
-# Getting Started with Create React App
+# 🎮 Hangman Game Deployment on AWS EC2 🚀  
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This guide will help you deploy the **Hangman Game** on an **AWS EC2 Instance** and make it accessible to the world. 🎉  
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📌 Prerequisites  
+Before starting, ensure you have:  
+- An **AWS account**.  
+- **MobaXterm** (or any SSH client like PuTTY).  
+- **GitHub repository** with your Hangman Game.  
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## **🚀 Step 1: Create an EC2 Instance on AWS**  
+1. Log in to your **AWS Management Console**.  
+2. Go to **EC2 Dashboard** → Click **Launch Instance**.  
+3. Choose **Ubuntu 22.04 LTS** (or any preferred OS).  
+4. Select **Instance Type** → `t2.micro` (Free Tier eligible).  
+5. Configure Security Group:  
+   - Allow **SSH (Port 22)** for remote access.  
+6. Click **Launch** and **Download the Key Pair** (`.pem` file).  
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## **🔑 Step 2: Access EC2 Instance Using MobaXterm (SSH)**  
+1. Open **MobaXterm**.  
+2. Click on **Session** → Select **SSH**.  
+3. In **Remote Host**, enter your **EC2 Public IP** (found in the AWS EC2 console).  
+4. Under **Advanced SSH Settings**, browse and select your `.pem` key file.  
+5. Click **OK** to connect.  
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## **🔄 Step 3: Update the EC2 Instance Packages**  
+Run the following commands to update the system packages:  
+```bash
+sudo apt update && sudo apt upgrade -y
+🌱 Step 4: Install Git on EC2
+sudo apt install git -y
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+📥 Step 5: Clone the Repository from GitHub
+git clone https://github.com/Raj9536/Hangman-game.git
+cd Hangman-game
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+🛠 Step 6: Install Node.js
+sudo apt install nodejs npm -y
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+node -v
+npm -v
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+📦 Step 7: Install Project Dependencies
+cd Hangman-game
+npm install
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+🚀 Step 8: Run the Hangman Game
+npm start
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+🌍 Step 9: Make the App Accessible from the Browser
+To allow external access:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Go to AWS EC2 Dashboard → Instances.
+Click on your EC2 instance and navigate to Security → Security Groups.
+Click on Inbound Rules → Edit Inbound Rules.
+Click Add Rule and enter:
+Protocol: TCP
+Port Range: 3000 (or the port your app is running on)
+Source: 0.0.0.0/0 (Allows access from anywhere)
+Click Save Rules.
 
-## Learn More
+Now, open your browser and visit: EC2PublicIPAddress:3000
+Your Hangman Game is now live and accessible to the world! 🌍🔥
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
